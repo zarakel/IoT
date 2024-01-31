@@ -8,6 +8,7 @@
 
 default_interface = "Qualcomm Atheros AR9485WB-EG Wireless Network Adapter"
 
+
 Vagrant.configure("2") do |config|
   # The most common configuration options are documented and commented below.
   # For a complete reference, please see the online documentation at
@@ -16,10 +17,12 @@ Vagrant.configure("2") do |config|
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://vagrantcloud.com/search.
   config.vm.box = "generic/alpine319"
-  config.vm.synced_folder ".", "/vagrant", disabled: true
+  config.vm.synced_folder "/mnt/c", "/vagrant", type: "virtualbox"
   config.vm.define "jbuanS" do |control|
-    control.vm.network "public_network", bridge: default_interface #, ip: "192.168.56.110" 
+    #control.vm.network "public_network", ip: "192.168.56.110", bridge: default_interface 
+    control.vm.network "private_network", ip: "192.168.56.110"
     control.vm.provider "virtualbox" do |v|
+      v.name = "jbuanS"
       v.memory = "1024"
       v.cpus = "1"
     end
@@ -27,24 +30,42 @@ Vagrant.configure("2") do |config|
       apk update
       apk upgrade
       apk add iptables
-      curl -sfL https://get.k3s.io | K3S_KUBECONFIG_MODE="644" sh -
+      # on modifie l'appel du script pour accueuillir une logne de fix
+      curl -sfL https://get.k3s.io | K3S_NODE_NAME="jbuanS" K3S_KUBECONFIG_MODE="644" sh - 
+      NODE_TOKEN="/var/lib/rancher/k3s/server/node-token"
+      while [ ! -e ${NODE_TOKEN} ]
+      do
+          sleep 2
+      done
+      cat ${NODE_TOKEN}
+      cp ${NODE_TOKEN} /vagrant/token
+      #KUBE_CONFIG="/etc/rancher/k3s/k3s.yaml"
+      #cp ${KUBE_CONFIG} /vagrant/k3s.yaml #copy contents of "k3s.yaml" to ".kube/config" to 'kubectl' from local-machine
+      #sudo k3s kubectl config view --raw >> /vagrant/
+      #sudo k3s get nodes
     SHELL
   end
-  config.vm.define "jbuanSW" do |control|
-    control.vm.network "public_network", bridge: default_interface # ,ip: "192.168.56.111"
-    control.vm.provider "virtualbox" do |v|
-      v.memory = "1024"
-      v.cpus = "1"
-    end
-    control.vm.provision "shell", inline: <<-SHELL
-      apk update
-      apk upgrade
-      apk add iptables
-      curl -sfL https://get.k3s.io | K3S_URL=https://135.181.205.14:6443 K3S_TOKEN="secret" sh -
+ # config.vm.define "jbuanSW" do |control|
+    #control.vm.network "public_network", ip: "192.168.56.111", bridge: default_interface 
+    #control.vm.network "private_network", ip: "192.168.56.111"
+    #control.vm.network "forwarded_port", guest: 6443, host: 1234 
+    #control.vm.provider "virtualbox" do |v|
+      #v.name = "jbuanSW"
+      #v.memory = "1024"
+      #v.cpus = "1"
+    #end
+    #control.vm.provision "file", source: "/vagrant/token", destination: "~/.kube/."
+    #control.vm.provision "file", source: "/vagrant/k3s.yaml", destination: "~/.kube/config"
+    #control.vm.provision "shell", inline: <<-SHELL
+      #apk update
+      #apk upgrade
+      #apk add iptables
+      #curl -sfL https://get.k3s.io |  sh -
       # ca chie en dessous
-      # sudo k3s agent --server https://myserver:6443 --token ${NODE_TOKEN}
-    SHELL
-  end
+      #sudo k3s agent --server https://myserver:6443 --token ${NODE_TOKEN}
+      #curl -sfL https://get.k3s.io | K3S_URL="https://127.0.0.1:6443" K3S_TOKEN_FILE=~/.kube/token INSTALL_K3S_EXEC="--node-name jbuanSW" sh -
+    #SHELL
+  #end
  
   # Disable automatic box update checking. If you disable this, then
     
