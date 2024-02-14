@@ -1,6 +1,0 @@
-services:
-  server:
-    container_name: jbuanS
-    build: ./srcs/p1/
-    ports:
-      - "80:80"
