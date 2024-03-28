@@ -1,0 +1,32 @@
+Vagrant.configure("2") do |config|
+  config.vm.box = "generic/alpine319"
+  config.vm.synced_folder ".", "/vagrant"
+  config.vbguest.auto_update = false
+  config.vm.provision "file", source: "./conf/", destination:"/home/vagrant/conf/."
+  config.vm.define "jbuanS" do |control|
+    control.vm.network "private_network", ip: "192.168.56.110"
+    control.vm.provider "virtualbox" do |v|
+      v.name = "jbuanS"
+      #v.memory = "1024" 
+      #marche impec a 2048
+      v.memory= "2048"
+      v.cpus = "1"
+      v.customize ["modifyvm", :id, "--cableconnected1", "on"]
+    end
+    control.vm.provision "shell", inline: <<-SHELL
+      apk update
+      apk upgrade
+      apk add iptables
+      curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC=" --write-kubeconfig-mode=644 --node-name=jbuanS" sh -s - server
+      # precedemment curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC=" --write-kubeconfig-mode=644 --node-name=jbuanS --tls-san=192.168.56.110 -i=192.168.56.110 --cluster-cidr=192.168.56.0/30 " sh -s - server
+      until kubectl apply -f /home/vagrant/conf/traefik; do
+        echo "kubectl apply failed, retrying in 10 seconds.."
+        sleep 10
+      done
+      until kubectl apply -f /home/vagrant/conf/nginx; do
+        echo "kubectl apply failed, retrying in 10 seconds.."
+        sleep 10
+      done
+      SHELL
+  end
+end  

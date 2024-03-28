@@ -1,0 +1,45 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx1
+
+spec:
+  ports:
+    - name: web
+      port: 80
+      targetPort: web
+
+  selector:
+    app: nginx1
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx2
+
+spec:
+  ports:
+    - name: web
+      port: 80
+      targetPort: web
+
+  selector:
+    app: nginx2
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx3
+
+spec:
+  ports:
+    - name: web
+      port: 80
+      targetPort: web
+
+  selector:
+    app: nginx3

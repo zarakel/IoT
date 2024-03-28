@@ -2,11 +2,7 @@ all:
 	vagrant up
 clean:
 	vagrant destroy -f jbuanS 
-	vagrant destroy -f jbuanSW
 	vagrant global-status --prune
-	if test -f ./k3s.yaml; then \
-		rm k3s.yaml token; \
-	fi
 	if test -f ./.vagrant/machines/jbuanS; then \
 		rm -Rf .vagrant/machines/*; \
 	fi
