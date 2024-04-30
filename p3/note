@@ -1,0 +1,5 @@
+1/ installer docker engine (avec script d'install ez), installer k3d, kubectl, helm (pour automatiser le déploiement d'application )
+2/ Utiliser la commande permettant de déployer le cluster avec 1 server et 2 workers, l'un pour argocd, l'autre pour l'appli a déployer 
+Voici la commande utiliser pour le moment: k3d cluster create my-cluster --servers 1 --agents 1   -e "K3S_API_SERVER__EXTERNAL_IP=127.0.0.1@all"   -e "K3S_API_SERVER__PORT=8080@all"
+kubectl create namespace [ dev && argocd ]
+3/ préparer les workers en installant argocd et l'appli

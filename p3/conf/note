@@ -1,0 +1,2 @@
+values.yaml > a placer a la racine du dossier <mon-app> crée grace a helm create <mon-app>
+deployment.yaml > a placer dans le dossier template du dossier <mon-app>
