@@ -15,7 +15,7 @@ Vagrant.configure("2") do |config|
       apk upgrade
       apk add iptables
       #je crois que cette ligne fait tout serrer alors je l'ai enlevé ->  --r le chemin du fichier à modifier
-      curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC="--write-kubeconfig-mode=644 --node-name=jbuanS --tls-san=192.168.56.110 -i=192.168.56.110 --cluster-cidr=192.168.56.0/30 " sh -s - server 
+      curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC="--write-kubeconfig-mode=644 --node-name=jbuanS -i=192.168.56.110" sh -s - server 
       NODE_TOKEN="/var/lib/rancher/k3s/server/token"
       while [ ! -e ${NODE_TOKEN} ]
         do
@@ -37,6 +37,7 @@ Vagrant.configure("2") do |config|
     control.vm.provider "virtualbox" do |v|
       v.name = "jbuanSW"
       v.memory = "1024"
+      #v.memory = "2048"
       v.cpus = "1"
       v.customize ["modifyvm", :id, "--cableconnected1", "on"]
     end
