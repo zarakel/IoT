@@ -1,4 +1,4 @@
-sudo k3d cluster create mycluster
+sudo k3d cluster create mycluster -a 1
 sudo kubectl create namespace dev
 sudo kubectl create namespace argocd
 kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml

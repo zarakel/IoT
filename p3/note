@@ -3,3 +3,5 @@
 Voici la commande utiliser pour le moment: k3d cluster create my-cluster --servers 1 --agents 1   -e "K3S_API_SERVER__EXTERNAL_IP=127.0.0.1@all"   -e "K3S_API_SERVER__PORT=8080@all"
 kubectl create namespace [ dev && argocd ]
 3/ préparer les workers en installant argocd et l'appli
+4/ Bien penser a exposer les ports des services avec kubectl port-forwarding
+5/ argocd app set playground --sync-policy automated pour automatisé la sync

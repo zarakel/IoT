@@ -1,0 +1,1 @@
+argocd app create playground --repo https://github.com/zarakel/ArgoCD-k3d-pipe-.git --path playground --dest-server https://kubernetes.default.svc --dest-namespace dev
