@@ -5,4 +5,5 @@ sudo sh get-docker.sh # continuité ligne précédente
 sudo curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" # install kubectl avec le ligne suivante
 sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl # continuité ligne précédente
 sudo curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash # installer helm
+wait 1000
 sudo bash config.sh
