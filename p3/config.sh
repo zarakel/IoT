@@ -9,7 +9,8 @@ sudo kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "LoadBalanc
 echo "waiting ..."
 sudo kubectl wait pod --all --for=condition=Ready --namespace=argocd --timeout=-1s
 sudo argocd admin initial-password -n argocd | awk 'NR==1' | cat > pass
-sudo kubectl get nodes -o wide | awk -v OFS='\t\t' '{print }' | awk 'NR==2' | cat > ip_cluster 
+sudo kubectl get nodes -o wide | awk -v OFS='\t\t' '{print $6}' | awk 'NR==2' | cat > ip_address
+sudo kubectl get svc/argocd-server -n argocd | awk {'print $5'} | awk -F ',' 'NR==2 {print $2}' | awk -F ':' '{print $2}' | awk -F '/' '{print $1}' | cat > port
 sudo argocd login `cat ip_address`:`cat port` --username admin --password `cat pass` --insecure
 sudo argocd app create playground --repo https://github.com/zarakel/ArgoCD-k3d-pipe-.git --path playground --dest-server https://kubernetes.default.svc --dest-namespace dev
 sudo argocd app set playground --sync-policy automated
