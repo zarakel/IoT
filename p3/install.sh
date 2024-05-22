@@ -1,3 +1,4 @@
+sudo apt install wget curl -y 
 wget -q -O - https://raw.githubusercontent.com/k3d-io/k3d/main/install.sh | bash # install k3D
 curl -fsSL https://get.docker.com -o get-docker.sh # install docker engine
 sudo sh get-docker.sh # continuité ligne précédente
