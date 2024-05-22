@@ -14,4 +14,4 @@ sudo kubectl get svc/argocd-server -n argocd | awk {'print $5'} | awk -F ',' 'NR
 sudo argocd login `cat ip_address`:`cat port` --username admin --password `cat pass` --insecure
 sudo argocd app create playground --repo https://github.com/zarakel/ArgoCD-k3d-pipe-.git --path playground --dest-server https://kubernetes.default.svc --dest-namespace dev
 sudo argocd app set playground --sync-policy automated
-#kubectl patch svc playground -n dev -p '{"spec": {"type": "LoadBalancer"}}' Je la commente car pas sur de m'en servir puisque le lb est déja fait
+sudo kubectl patch svc playground -n dev -p '{"spec": {"type": "LoadBalancer"}}'
