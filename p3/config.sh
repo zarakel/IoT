@@ -6,6 +6,7 @@ sudo wget https://github.com/argoproj/argo-cd/releases/download/v2.11.0/argocd-l
 sudo chmod +x argocd
 sudo mv argocd /usr/local/bin/
 sudo kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "LoadBalancer"}}'
+echo "waiting ..."
 sudo kubectl wait svc --all --for=condition=Ready --namespace=argocd
 sudo argocd admin initial-password -n argocd | awk 'NR==1' | cat > pass
 sudo kubectl get nodes -o wide | awk -v OFS='\t\t' '{print }' | awk 'NR==2' | cat > ip_cluster 
