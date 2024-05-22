@@ -6,9 +6,9 @@ sudo wget https://github.com/argoproj/argo-cd/releases/download/v2.11.0/argocd-l
 sudo chmod +x argocd
 sudo mv argocd /usr/local/bin/
 sudo kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "LoadBalancer"}}'
-argocd admin initial-password -n argocd | awk 'NR==1' | cat > pass
+sudo argocd admin initial-password -n argocd | awk 'NR==1' | cat > pass
 sudo kubectl get nodes -o wide | awk -v OFS='\t\t' '{print }' | awk 'NR==2' | cat > ip_cluster 
-argocd login `cat ip_address`:`cat port` --username admin --password `cat pass`
-argocd app create playground --repo https://github.com/zarakel/ArgoCD-k3d-pipe-.git --path playground --dest-server https://kubernetes.default.svc --dest-namespace dev
-argocd app set playground --sync-policy automated
+sudo argocd login `cat ip_address`:`cat port` --username admin --password `cat pass`
+sudo argocd app create playground --repo https://github.com/zarakel/ArgoCD-k3d-pipe-.git --path playground --dest-server https://kubernetes.default.svc --dest-namespace dev
+sudo argocd app set playground --sync-policy automated
 #kubectl patch svc playground -n dev -p '{"spec": {"type": "LoadBalancer"}}' Je la commente car pas sur de m'en servir puisque le lb est déja fait
