@@ -25,4 +25,3 @@ sudo argocd app create playground \
   --insecure
 sleep 10
 sudo kubectl wait pod --all --for=condition=Ready --namespace=dev --timeout=-1s
-sudo kubectl port-forward -n dev svc/playground 8888:8888
