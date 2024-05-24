@@ -11,7 +11,6 @@ sudo kubectl wait pod --all --for=condition=Ready --namespace=argocd --timeout=-
 sudo argocd admin initial-password -n argocd | awk 'NR==1' | cat > pass
 sudo kubectl get nodes -o wide | awk -v OFS='\t\t' '{print $6}' | awk 'NR==2' | cat > ip_address
 sudo kubectl get svc/argocd-server -n argocd | awk {'print $5'} | awk -F ',' 'NR==2 {print $2}' | awk -F ':' '{print $2}' | awk -F '/' '{print $1}' | cat > port
-#sudo kubectl apply -n argocd -f argocd-cmd-params-cm.yaml
 sudo argocd login `cat ip_address`:`cat port` --username admin --password `cat pass` --insecure
 sudo argocd app create playground \
   --repo https://github.com/zarakel/ArgoCD.git \

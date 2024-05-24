@@ -1,2 +1,2 @@
-curl -vk http://`cat ip_address`:8888
+curl -vk localhost:8888
 

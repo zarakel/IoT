@@ -6,4 +6,4 @@ sudo curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/
 sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl # continuité ligne précédente
 sudo curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash # installer helm
 sleep 5
-sudo bash config.sh
+sudo bash conf/config.sh
