@@ -1,165 +1,163 @@
-# Projet IoT & DevOps - Cluster Kubernetes, Ingress Routing & GitOps
+# IoT & DevOps Project - Kubernetes Cluster, Ingress Routing & GitOps
 
-Ce dépôt contient un ensemble de projets pratiques d'administration système, d'orchestration de conteneurs et de déploiement continu (GitOps). L'objectif est d'apprendre à mettre en place une infrastructure complète, depuis le provisionnement de machines virtuelles jusqu'au déploiement automatisé d'applications avec Kubernetes, Helm et Argo CD.
+This repository contains a set of hands-on projects focusing on system administration, container orchestration, and continuous deployment (GitOps). The objective is to learn how to design and build a complete infrastructure, starting from provisioning virtual machines to automated application deployment using Kubernetes, Helm, and Argo CD.
 
----
+## 📝 Project Summary
 
-## 📝 Résumé du Projet
+The project is structured into three progressive and distinct parts:
 
-Le projet est divisé en trois parties distinctes et progressives :
+1. **Part 1 (`p1`): Multi-node Kubernetes Cluster (K3s)**
+   - Initializing a two-node infrastructure: a master node (Server) and a worker node (Worker).
+   - Provisioning virtual machines running **Alpine Linux** using **Vagrant** and **VirtualBox**.
+   - Lightweight Kubernetes deployment via **K3s**.
+   - Automating the secure sharing of the authentication token (`token`) and the cluster configuration file (`k3s.yaml`) to enable the Worker to automatically join the Server.
 
-1. **Partie 1 (`p1`) : Cluster Kubernetes Multi-nœuds (K3s)**
-   - Initialisation d'une infrastructure à deux nœuds : un nœud maître (Server) et un nœud travailleur (Worker).
-   - Utilisation de **Vagrant** et **VirtualBox** avec des machines virtuelles sous **Alpine Linux**.
-   - Déploiement léger de Kubernetes via **K3s**.
-   - Automatisation du partage sécurisé du jeton d'authentification (`token`) et de la configuration du cluster (`k3s.yaml`) pour permettre la jonction automatique du Worker au Server.
+2. **Part 2 (`p2`): Application Routing with Traefik Ingress**
+   - Setting up a K3s cluster on a single VM.
+   - Deploying three distinct Nginx web applications managed using Kubernetes Deployments, Services, and ConfigMaps.
+   - Configuring the **Traefik** Ingress controller to perform host-based routing using HTTP `Host` headers (`app1.com`, `app2.com`) and default routing (fallback).
 
-2. **Partie 2 (`p2`) : Routage Applicatif avec Traefik Ingress**
-   - Mise en place d'un cluster K3s sur une VM unique.
-   - Déploiement de trois applications web Nginx distinctes gérées via des Kubernetes Deployments, Services et ConfigMaps.
-   - Configuration du contrôleur d'Ingress **Traefik** pour effectuer du routage basé sur les en-têtes HTTP `Host` (`app1.com`, `app2.com`) et un routage par défaut (fallback).
-
-3. **Partie 3 (`p3`) : GitOps Continu avec K3d, Helm & Argo CD**
-   - Création d'un cluster Kubernetes local à l'aide de **K3d** (Kubernetes dans Docker).
-   - Déploiement et configuration d'**Argo CD** pour gérer le cycle de vie d'une application en mode GitOps.
-   - Modélisation de l'application via un Chart **Helm** personnalisé (`values.yaml`, `deployment.yaml`).
-   - Synchronisation automatique et auto-correctrice (self-healing/auto-pruning) avec un dépôt Git distant.
+3. **Part 3 (`p3`): Continuous GitOps with K3d, Helm & Argo CD**
+   - Creating a local Kubernetes cluster using **K3d** (Kubernetes in Docker).
+   - Deploying and configuring **Argo CD** to manage the application lifecycle in GitOps mode.
+   - Modeling the application using a custom **Helm** Chart (`values.yaml`, `deployment.yaml`).
+   - Automated synchronization and self-healing (auto-sync, self-healing, and auto-pruning) with a remote Git repository.
 
 ---
 
-## 🛠️ Techniques Acquises
+## 🛠️ Acquired Skills
 
-Ce projet permet de maîtriser un large panel de compétences fondamentales en DevOps, Cloud Native et administration système :
+This project covers a wide range of fundamental skills in DevOps, Cloud Native, and system administration:
 
-- **Infrastructure as Code (IaC) & Virtualisation** :
-  - Configuration de réseaux privés et de partages de dossiers hôte-invité avec **Vagrant**.
-  - Optimisation de VM légères sous **Alpine Linux** (gestion CPU/Mémoire, connectivité réseau VirtualBox).
-- **Orchestration de Conteneurs (Kubernetes)** :
-  - Déploiement et administration de distributions Kubernetes légères (**K3s** pour l'embarqué/VM et **K3d** pour le développement local).
-  - Gestion des objets Kubernetes essentiels : *Deployments, Services (ClusterIP et LoadBalancer), ConfigMaps, Namespaces, Ingress/IngressRoute*.
-- **Routage de trafic & Reverse Proxy** :
-  - Configuration de **Traefik** comme contrôleur d'Ingress Kubernetes.
-  - Définition de règles d'Ingress avancées (routage basé sur le nom de domaine hôte, routes de secours).
-- **Package Management avec Helm** :
-  - Création et personnalisation de Templates Helm pour paramétrer dynamiquement des manifestes de déploiement Kubernetes.
-- **Approche GitOps & Continuous Delivery (CD)** :
-  - Installation et configuration d'**Argo CD**.
-  - Automatisation du déploiement depuis un dépôt de code source Git avec des politiques de synchronisation automatisée, d'auto-remédiation (*self-healing*) et de nettoyage (*auto-prune*).
-- **Scripting & Automatisation** :
-  - Écriture de scripts Bash robustes et de Makefiles pour simplifier et automatiser l'installation et le cycle de vie de l'infrastructure.
-
----
-
-## 🚀 Comment l'Utiliser
-
-Chaque partie dispose de sa propre configuration et automatisation via un `Makefile`.
+- **Infrastructure as Code (IaC) & Virtualization**:
+  - Configuring private networks and host-guest folder sharing using **Vagrant**.
+  - Optimizing lightweight VMs running **Alpine Linux** (CPU/Memory resource allocation, VirtualBox network configuration).
+- **Container Orchestration (Kubernetes)**:
+  - Deploying and administering lightweight Kubernetes distributions (**K3s** for resource-constrained VMs and **K3d** for local development).
+  - Managing essential Kubernetes resources: *Deployments, Services (ClusterIP and LoadBalancer), ConfigMaps, Namespaces, Ingress/IngressRoute*.
+- **Traffic Routing & Reverse Proxy**:
+  - Configuring **Traefik** as a Kubernetes Ingress controller.
+  - Setting up advanced Ingress rules (routing based on host domain name, default fallback routes).
+- **Package Management with Helm**:
+  - Designing and customizing Helm Templates to dynamically configure Kubernetes deployment manifests.
+- **GitOps & Continuous Delivery (CD)**:
+  - Installing and configuring **Argo CD**.
+  - Automating deployments from a Git source code repository with automated synchronization, self-healing, and auto-pruning policies.
+- **Scripting & Automation**:
+  - Writing robust Bash scripts and Makefiles to automate the infrastructure setup and lifecycle management.
 
 ---
 
-### 📦 Partie 1 : Cluster K3s (Multi-nœuds)
+## 🚀 How to Use It
 
-Cette partie permet de déployer deux machines virtuelles sous Alpine Linux (`jbuanS` et `jbuanSW`) configurées en cluster K3s Server/Worker.
+Each part has its own configuration and automation managed via a `Makefile`.
 
-#### Fichiers Clés
-* [p1/Vagrantfile](file:///home/jbuan/sgoinfre/IOT/p1/Vagrantfile) : Configuration des deux VMs (Réseau privé, allocation des ressources et script de provisionnement).
-* [p1/Makefile](file:///home/jbuan/sgoinfre/IOT/p1/Makefile) : Gestion du cycle de vie du cluster.
-* [p1/install.sh](file:///home/jbuan/sgoinfre/IOT/p1/install.sh) : Script d'installation des prérequis sur la machine hôte.
+---
 
-#### Instructions d'Exécution
-1. Placez-vous dans le dossier de la partie 1 :
+### 📦 Part 1: K3s Cluster (Multi-node)
+
+This part deploys two Alpine Linux virtual machines (`jbuanS` and `jbuanSW`) configured as a K3s Server/Worker cluster.
+
+#### Key Files
+* [p1/Vagrantfile](p1/Vagrantfile): Configuration of the two VMs (private network, resource allocation, and provisioning script).
+* [p1/Makefile](p1/Makefile): Cluster lifecycle management.
+* [p1/install.sh](p1/install.sh): Installation script for prerequisites on the host machine.
+
+#### Execution Instructions
+1. Navigate to the Part 1 directory:
    ```bash
    cd p1
    ```
-2. Installez les prérequis (Vagrant, VirtualBox, etc.) :
+2. Install prerequisites (Vagrant, VirtualBox, etc.):
    ```bash
    ./install.sh
    ```
-3. Démarrez et configurez le cluster :
+3. Start and configure the cluster:
    ```bash
    make
    ```
-4. Connectez-vous en SSH au serveur maître pour vérifier que les nœuds ont bien rejoint le cluster :
+4. Connect via SSH to the master server to verify that the nodes have successfully joined the cluster:
    ```bash
    vagrant ssh jbuanS
    sudo kubectl get nodes -o wide
    ```
-5. Pour détruire proprement les machines virtuelles et nettoyer les fichiers temporaires :
+5. To clean up and destroy the virtual machines:
    ```bash
    make clean
    ```
 
 ---
 
-### 🌐 Partie 2 : Routage HTTP (Traefik Ingress & Nginx)
+### 🌐 Part 2: HTTP Routing (Traefik Ingress & Nginx)
 
-Cette partie déploie un serveur K3s unique exécutant trois applications Nginx avec des pages d'accueil distinctes, accessibles via des noms de domaine.
+This part deploys a single K3s server running three Nginx applications with distinct homepages, accessible via domain names.
 
-#### Fichiers Clés
-* [p2/Vagrantfile](file:///home/jbuan/sgoinfre/IOT/p2/Vagrantfile) : Configuration de la VM et application automatique des manifestes Kubernetes.
-* [p2/conf/nginx/04-nginx-ingress.yml](file:///home/jbuan/sgoinfre/IOT/p2/conf/nginx/04-nginx-ingress.yml) : Définition des règles d'Ingress pour le routage de trafic.
-* [p2/Makefile](file:///home/jbuan/sgoinfre/IOT/p2/Makefile) : Déploiement et destruction de l'environnement de la partie 2.
+#### Key Files
+* [p2/Vagrantfile](p2/Vagrantfile): VM configuration and automatic application of Kubernetes manifests.
+* [p2/conf/nginx/04-nginx-ingress.yml](p2/conf/nginx/04-nginx-ingress.yml): Ingress rules definition for traffic routing.
+* [p2/Makefile](p2/Makefile): Deployment and destruction of the Part 2 environment.
 
-#### Instructions d'Exécution
-1. Placez-vous dans le dossier de la partie 2 :
+#### Execution Instructions
+1. Navigate to the Part 2 directory:
    ```bash
    cd p2
    ```
-2. Démarrez la machine virtuelle et appliquez les configurations Kubernetes :
+2. Start the VM and apply Kubernetes configurations:
    ```bash
    make
    ```
-3. Testez le routage depuis votre machine hôte (ou depuis la VM en SSH) :
-   - Requête vers le site de vêtements (`nginx1`) :
+3. Test routing from your host machine (or from the VM via SSH):
+   - Request to the clothing website (`nginx1`):
      ```bash
      curl -H "Host: app1.com" http://192.168.56.110
      ```
-   - Requête vers le site de décoration (`nginx2`) :
+   - Request to the home decor website (`nginx2`):
      ```bash
      curl -H "Host: app2.com" http://192.168.56.110
      ```
-   - Requête vers le site météo (fallback par défaut, `nginx3`) :
+   - Request to the weather website (default fallback, `nginx3`):
      ```bash
      curl http://192.168.56.110
      ```
-4. Pour détruire la machine et nettoyer l'espace :
+4. To destroy the VM and clean up the environment:
    ```bash
    make clean
    ```
 
 ---
 
-### 🔁 Partie 3 : GitOps Continu avec Argo CD & Helm
+### 🔁 Part 3: Continuous GitOps with Argo CD & Helm
 
-Cette partie installe Docker, K3d et Helm localement sur votre machine hôte pour mettre en place un pipeline GitOps géré par Argo CD.
+This part installs Docker, K3d, and Helm locally on your host machine to set up a GitOps pipeline managed by Argo CD.
 
-#### Fichiers Clés
-* [p3/Makefile](file:///home/jbuan/sgoinfre/IOT/p3/Makefile) : Lance l'installation et le déploiement global de la partie 3.
-* [p3/install.sh](file:///home/jbuan/sgoinfre/IOT/p3/install.sh) : Installe Docker, K3d, Helm et kubectl, puis lance le script de configuration.
-* [p3/conf/config.sh](file:///home/jbuan/sgoinfre/IOT/p3/conf/config.sh) : Crée le cluster K3d, installe Argo CD, configure l'authentification et déploie l'application liée au dépôt Git distant.
-* [p3/conf/values.yaml](file:///home/jbuan/sgoinfre/IOT/p3/conf/values.yaml) / [p3/conf/deployment.yaml](file:///home/jbuan/sgoinfre/IOT/p3/conf/deployment.yaml) : Configuration de l'application packagée avec Helm.
-* [p3/test.sh](file:///home/jbuan/sgoinfre/IOT/p3/test.sh) : Script de redirection de port pour tester localement l'application.
+#### Key Files
+* [p3/Makefile](p3/Makefile): Triggers the installation and global deployment of Part 3.
+* [p3/install.sh](p3/install.sh): Installs Docker, K3d, Helm, and kubectl, then starts the configuration script.
+* [p3/conf/config.sh](p3/conf/config.sh): Creates the K3d cluster, installs Argo CD, configures authentication, and deploys the application linked to the remote Git repository.
+* [p3/conf/values.yaml](p3/conf/values.yaml) / [p3/conf/deployment.yaml](p3/conf/deployment.yaml): Custom application configuration packaged with Helm.
+* [p3/test.sh](p3/test.sh): Port-forwarding script to test the application locally.
 
-#### Instructions d'Exécution
-1. Placez-vous dans le dossier de la partie 3 :
+#### Execution Instructions
+1. Navigate to the Part 3 directory:
    ```bash
    cd p3
    ```
-2. Installez Docker, K3d, Helm, kubectl et déployez le cluster ainsi qu'Argo CD :
+2. Install Docker, K3d, Helm, kubectl, and deploy the cluster and Argo CD:
    ```bash
    make
    ```
-3. Exécutez le script de test pour effectuer une redirection de port (Port-Forward) vers l'application déployée dans le namespace `dev` :
+3. Run the test script to establish port-forwarding to the application deployed in the `dev` namespace:
    ```bash
    ./test.sh
    ```
-4. Dans un second terminal, interrogez l'application web pour valider son fonctionnement :
+4. In a second terminal, query the web application to validate its deployment:
    ```bash
    curl -vk localhost:8888
    ```
-5. Pour supprimer le cluster K3d et nettoyer les ressources système :
+5. To delete the K3d cluster and clean up system resources:
    ```bash
    make clean
    ```
 
 > [!TIP]
-> Le mot de passe initial de la console d'administration Argo CD est généré dynamiquement lors de l'installation et stocké dans le fichier `p3/pass`. Vous pouvez vous y connecter via l'adresse IP et le port indiqués par les fichiers `p3/ip_address` et `p3/port`.
+> The initial password for the Argo CD administration console is dynamically generated during installation and stored in the `p3/pass` file. You can access it using the IP address and port specified in the `p3/ip_address` and `p3/port` files.
