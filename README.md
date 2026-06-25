@@ -2,7 +2,7 @@
 
 This repository contains a set of hands-on projects focusing on system administration, container orchestration, and continuous deployment (GitOps). The objective is to learn how to design and build a complete infrastructure, starting from provisioning virtual machines to automated application deployment using Kubernetes, Helm, and Argo CD.
 
-## 📝 Project Summary
+## Project Summary
 
 The project is structured into three progressive and distinct parts:
 
@@ -25,7 +25,7 @@ The project is structured into three progressive and distinct parts:
 
 ---
 
-## 🛠️ Acquired Skills
+## Acquired Skills
 
 This project covers a wide range of fundamental skills in DevOps, Cloud Native, and system administration:
 
@@ -48,13 +48,13 @@ This project covers a wide range of fundamental skills in DevOps, Cloud Native, 
 
 ---
 
-## 🚀 How to Use It
+## How to Use It
 
 Each part has its own configuration and automation managed via a `Makefile`.
 
 ---
 
-### 📦 Part 1: K3s Cluster (Multi-node)
+### Part 1: K3s Cluster (Multi-node)
 
 This part deploys two Alpine Linux virtual machines (`jbuanS` and `jbuanSW`) configured as a K3s Server/Worker cluster.
 
@@ -88,7 +88,7 @@ This part deploys two Alpine Linux virtual machines (`jbuanS` and `jbuanSW`) con
 
 ---
 
-### 🌐 Part 2: HTTP Routing (Traefik Ingress & Nginx)
+### Part 2: HTTP Routing (Traefik Ingress & Nginx)
 
 This part deploys a single K3s server running three Nginx applications with distinct homepages, accessible via domain names.
 
@@ -126,7 +126,7 @@ This part deploys a single K3s server running three Nginx applications with dist
 
 ---
 
-### 🔁 Part 3: Continuous GitOps with Argo CD & Helm
+### Part 3: Continuous GitOps with Argo CD & Helm
 
 This part installs Docker, K3d, and Helm locally on your host machine to set up a GitOps pipeline managed by Argo CD.
 
